@@ -38,10 +38,10 @@ read DOSETUPTWO
 
 if [[ $DOSETUPTWO =~ "y" ]] ; then
 
-directcoin-cli stop > /dev/null 2>&1
-wget http://140.82.35.82/files/directcoind -O /usr/local/bin/directcoind
-wget http://140.82.35.82/files/directcoin-cli -O /usr/local/bin/directcoin-cli
-chmod +x /usr/local/bin/directcoin*
+scio-cli stop > /dev/null 2>&1
+wget https://github.com/Lazzardev/SCIO/blob/master/wallet/linux64/sciod -O /usr/local/bin/sciod
+wget https://github.com/Lazzardev/SCIO/blob/master/wallet/linux64/scio-cli -O /usr/local/bin/scio-cli
+chmod +x /usr/local/bin/scio*
 
 fi
 
@@ -74,15 +74,15 @@ echo ""
 echo "Enter masternode private key for node $ALIAS , Go To your Windows Wallet Tools > Debug Console , Type masternode genkey"
 read PRIVKEY
 
-CONF_DIR=~/.directcoin/
-CONF_FILE=directcoin.conf
-PORT=6615
+CONF_DIR=~/.SCIO/
+CONF_FILE=scio.conf
+PORT=7770
 
 mkdir -p $CONF_DIR
 echo "rpcuser=user"`shuf -i 100000-10000000 -n 1` > $CONF_DIR/$CONF_FILE
 echo "rpcpassword=pass"`shuf -i 100000-10000000 -n 1` >> $CONF_DIR/$CONF_FILE
 echo "rpcallowip=127.0.0.1" >> $CONF_DIR/$CONF_FILE
-echo "rpcport=6616" >> $CONF_DIR/$CONF_FILE
+echo "rpcport=7777" >> $CONF_DIR/$CONF_FILE
 echo "listen=1" >> $CONF_DIR/$CONF_FILE
 echo "server=1" >> $CONF_DIR/$CONF_FILE
 echo "daemon=1" >> $CONF_DIR/$CONF_FILE
@@ -92,6 +92,7 @@ echo "port=$PORT" >> $CONF_DIR/$CONF_FILE
 echo "masternodeaddr=$IP:$PORT" >> $CONF_DIR/$CONF_FILE
 echo "masternodeprivkey=$PRIVKEY" >> $CONF_DIR/$CONF_FILE
 
-directcoind -daemon
+sciod -daemon
+
 
 
